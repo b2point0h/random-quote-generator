@@ -2,11 +2,9 @@
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 var message = '';
-var randomQuote;
 var red;
 var green;
 var blue;
-var randomColor;
 var viewedQuotes =[];
 
 //Array to hold quotes, sources, citaitons & years
@@ -65,12 +63,12 @@ function getRandomQuote() {
 	
 	var splicedQuote = quotes.splice(randomQuote, 1)[0];
 	viewedQuotes.push(splicedQuote);
-	if ( quotes.length == 0 ) {
+	if ( quotes.length === 0 ) {
 		quotes = viewedQuotes;
 		viewedQuotes = [];
 	}
 	return splicedQuote;
-};
+}
 
 //Function to genereate random rgb color value
 function randomColorGenerator() {
@@ -81,35 +79,32 @@ function randomColorGenerator() {
 	return randomColor;
 }
 
-function autoRotate() {
-	// Rotate the quote every 5 seconds
-	var rotate = setInterval(printQuote, 5000);
-}
+
 
 // Function to take previously selected random object from array & print to screen
 function printQuote() {
 	// On click event, function printQuote runs, then fires the getRandomQuote function
 	var quotes = getRandomQuote();
-	quote ='<p class="quote">' + quotes.quote + '</p>';
-	quote  += '<p class="source">' + quotes.source;
+	message ='<p class="quote">' + quotes.quote + '</p>';
+	message  += '<p class="source">' + quotes.source;
 	if ( quotes.citation ) {
-		quote += '<span class="citation">' + quotes.citation + '</span>';
+		message += '<span class="citation">' + quotes.citation + '</span>';
 	} else {
-		quote += '';
-	};
+		message += '';
+	}
 	if (quotes.year) {
-		quote += '<span class="year">' + quotes.year + '</span></p>';	
+		message += '<span class="year">' + quotes.year + '</span></p>';	
 	} else {
-		quote += '';
+		message += '';
 	}
 	if ( quotes.tags ) {
-		quote += '<h3>' + quotes.tags + '</h3>';
+		message += '<h3>' + quotes.tags + '</h3>';
 	} else {
-		quote += '';
+		message += '';
 	}
-	print(quote);
+	print(message);
 	//Generate random color
 	randomColorGenerator();
 	//Update background with new random color
-	document.getElementById('bgcolor').style.backgroundColor = randomColor;
-};
+	document.getElementById('bgcolor').style.backgroundColor = randomColorGenerator();
+}
